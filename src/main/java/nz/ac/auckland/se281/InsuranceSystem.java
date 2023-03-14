@@ -29,13 +29,13 @@ public class InsuranceSystem {
       databaseAge.add(Integer.parseInt(age));
     } else if (databaseUserName.contains(userName) == true) {
       //Print not unique error
-      MessageCli.INVALID_USERNAME_TOO_SHORT.getMessage();
+      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
     } else if (Integer.valueOf(age) < 0) {
       //Print invalid age error message
-      MessageCli.INVALID_AGE.getMessage();
+      MessageCli.INVALID_AGE.printMessage(age, userName);
     } else if (userName.length() <= 3) {
       //Print userName too short error message
-      MessageCli.INVALID_USERNAME_TOO_SHORT.getMessage();
+      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
     }
     
    System.out.println(databaseUserName);
