@@ -25,6 +25,10 @@ public class InsuranceSystem {
     // The username should be unique, and the age should be a positive number
     // If these conditions are not met, an error message should be printed
     if (databaseUserName.contains(userName) == false && Integer.valueOf(age) >= 0 && userName.length() > 3) {
+      // If the userName and age are both valid, then add it to the database using the correct format
+      // Change userName to all lowercase except first letter
+      userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+      
       databaseUserName.add(userName);
       databaseAge.add(Integer.parseInt(age));
     } else if (databaseUserName.contains(userName) == true) {
@@ -38,8 +42,8 @@ public class InsuranceSystem {
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
     }
     
-   System.out.println(databaseUserName);
-   System.out.println(databaseAge);
+  //  System.out.println(databaseUserName);
+  //  System.out.println(databaseAge);
   }
 
   public void loadProfile(String userName) {
