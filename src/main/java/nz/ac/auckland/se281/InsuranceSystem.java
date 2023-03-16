@@ -16,34 +16,49 @@ public class InsuranceSystem {
   }
 
   public void printDatabase() {
-    // Don't forget case sensitive
-    // Print the number of people in database
+    // Find length of database
+    int lengthDatabase = databaseUserName.size();
+    // Print the length of the database
+    if (lengthDatabase == 0) {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase),"s", ".");
+    } else if (lengthDatabase == 1) {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase), "", ":");
+    } else {
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase), "s", ":");
+    }
 
+    // Print the database
+    for (int i = 0; i < lengthDatabase; i++) {
+      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i+1), databaseUserName.get(i), Integer.toString(databaseAge.get(i)));
+    }
   }
 
   public void createNewProfile(String userName, String age) {
     // The username should be unique, and the age should be a positive number
     // If these conditions are not met, an error message should be printed
-    if (databaseUserName.contains(userName) == false && Integer.valueOf(age) >= 0 && userName.length() > 3) {
+
+    // Convert userName to correct format
+    userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+
+    if (databaseUserName.contains(userName) == false && Integer.valueOf(age) >= 0 && userName.length() >= 3) {
       // If the userName and age are both valid, then add it to the database using the correct format
       // Change userName to all lowercase except first letter
-      userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
-      
       databaseUserName.add(userName);
       databaseAge.add(Integer.parseInt(age));
+
+      // Print success message
+      MessageCli.PROFILE_CREATED.printMessage(userName, age);
+
     } else if (databaseUserName.contains(userName) == true) {
       //Print not unique error
       MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
     } else if (Integer.valueOf(age) < 0) {
       //Print invalid age error message
       MessageCli.INVALID_AGE.printMessage(age, userName);
-    } else if (userName.length() <= 3) {
+    } else if (userName.length() < 3) {
       //Print userName too short error message
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
     }
-    
-  //  System.out.println(databaseUserName);
-  //  System.out.println(databaseAge);
   }
 
   public void loadProfile(String userName) {
