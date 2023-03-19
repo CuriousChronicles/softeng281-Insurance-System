@@ -1,64 +1,18 @@
 package nz.ac.auckland.se281;
 
-import java.util.ArrayList;
-
-import org.eclipse.jgit.transport.CredentialItem.Username;
-
-// import java.util.ArrayList;
 import nz.ac.auckland.se281.Main.PolicyType;
 
 public class InsuranceSystem {
-  ArrayList<String> databaseUserName = new ArrayList<String>();
-  ArrayList<Integer> databaseAge = new ArrayList<Integer>();
-
   public InsuranceSystem() {
     // Only this constructor can be used (if you need to initialise fields).
   }
 
   public void printDatabase() {
-    // Find length of database
-    int lengthDatabase = databaseUserName.size();
-    // Print the length of the database
-    if (lengthDatabase == 0) {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase),"s", ".");
-    } else if (lengthDatabase == 1) {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase), "", ":");
-    } else {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase), "s", ":");
-    }
-
-    // Print the database
-    for (int i = 0; i < lengthDatabase; i++) {
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i+1), databaseUserName.get(i), Integer.toString(databaseAge.get(i)));
-    }
+    // TODO: Complete this method.
   }
 
   public void createNewProfile(String userName, String age) {
-    // The username should be unique, and the age should be a positive number
-    // If these conditions are not met, an error message should be printed
-
-    // Convert userName to correct format
-    userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
-
-    if (databaseUserName.contains(userName) == false && Integer.valueOf(age) >= 0 && userName.length() >= 3) {
-      // If the userName and age are both valid, then add it to the database using the correct format
-      // Change userName to all lowercase except first letter
-      databaseUserName.add(userName);
-      databaseAge.add(Integer.parseInt(age));
-
-      // Print success message
-      MessageCli.PROFILE_CREATED.printMessage(userName, age);
-
-    } else if (databaseUserName.contains(userName) == true) {
-      //Print not unique error
-      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
-    } else if (Integer.valueOf(age) < 0) {
-      //Print invalid age error message
-      MessageCli.INVALID_AGE.printMessage(age, userName);
-    } else if (userName.length() < 3) {
-      //Print userName too short error message
-      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
-    }
+    // TODO: Complete this method.
   }
 
   public void loadProfile(String userName) {
