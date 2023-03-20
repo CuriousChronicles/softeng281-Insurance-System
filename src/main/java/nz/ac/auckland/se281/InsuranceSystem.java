@@ -29,7 +29,7 @@ public class InsuranceSystem {
     // Print the database
     for (int i = 0; i < lengthDatabase; i++) {
       String userName = database.get(i).getUserName();
-      int age = database.get(i).getAge();
+      int age = database.get(i).getAgeAsInt();
       MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
           Integer.toString(i + 1), userName, Integer.toString(age));
     }
@@ -39,7 +39,7 @@ public class InsuranceSystem {
     // Check if age can be converted to an integer
 
     // Create profile
-    Profile p = new Profile(userName, Integer.valueOf(age));
+    Profile p = new Profile(userName, age);
     userName = p.getUserName();
     // Check if userName is unique
 

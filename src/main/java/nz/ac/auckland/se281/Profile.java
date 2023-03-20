@@ -2,9 +2,9 @@ package nz.ac.auckland.se281;
 
 public class Profile {
   private String userName;
-  private int age;
+  private String age;
 
-  public Profile(String userName, int age) {
+  public Profile(String userName, String age) {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     this.age = age;
   }
@@ -14,16 +14,22 @@ public class Profile {
     return userName;
   }
 
-  public int getAge() {
-    return age;
+  public int getAgeAsInt() {
+    return Integer.parseInt(age);
   }
 
   // Create method to check validity of age
   public boolean checkAgeValid() {
-    if (age <= 0) {
+    try {
+      // int number = Integer.parseInt(age);
+      if (getAgeAsInt() <= 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (NumberFormatException nfe) {
+      // MessageCli.INVALID_AGE.printMessage(age, userName);
       return false;
-    } else {
-      return true;
     }
   }
 
