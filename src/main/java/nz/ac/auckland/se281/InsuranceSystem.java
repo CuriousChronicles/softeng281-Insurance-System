@@ -36,6 +36,8 @@ public class InsuranceSystem {
   }
 
   public void createNewProfile(String userName, String age) {
+    // Check if age can be converted to an integer
+
     // Create profile
     Profile p = new Profile(userName, Integer.valueOf(age));
     userName = p.getUserName();
