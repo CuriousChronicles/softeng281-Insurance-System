@@ -5,13 +5,8 @@ public class Profile {
   private int age;
 
   public Profile(String userName, int age) {
-    this.userName = userName;
+    this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     this.age = age;
-  }
-
-  // Create method to format userName
-  public String formatUserName(String userName) {
-    return userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
   }
 
   // Create methods to access username and age
