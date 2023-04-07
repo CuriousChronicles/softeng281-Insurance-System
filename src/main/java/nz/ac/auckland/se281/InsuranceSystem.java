@@ -7,17 +7,15 @@ public class InsuranceSystem {
 
   // Create database called profiles using arraylists
   ArrayList<Profile> database = new ArrayList<Profile>();
+  private String loadedProfileUserName = null;
 
   public InsuranceSystem() {
     // Only this constructor can be used (if you need to initialise fields).
   }
 
   public void printDatabase() {
-    // Don't forget case sensitive
     // Print the number of people in database
-    // Find length of database
     int lengthDatabase = database.size();
-    // Print the length of the database
     if (lengthDatabase == 0) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase), "s", ".");
     } else if (lengthDatabase == 1) {
@@ -30,8 +28,13 @@ public class InsuranceSystem {
     for (int i = 0; i < lengthDatabase; i++) {
       String userName = database.get(i).getUserName();
       int age = database.get(i).getAgeAsInt();
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
-          Integer.toString(i + 1), userName, Integer.toString(age));
+      if (userName.equals(loadedProfileUserName)) {
+        MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage(
+            "*** ", Integer.toString(i + 1), userName, Integer.toString(age));
+      } else {
+        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
+            Integer.toString(i + 1), userName, Integer.toString(age));
+      }
     }
   }
 
@@ -66,7 +69,21 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
-    // TODO: Complete this method.
+    // Description: command loads a profile into the system
+    userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+    // if profile is loaded successfully, print success message
+    boolean inDatabase = false;
+    for (int i = 0; i < database.size(); i++) {
+      if (database.get(i).getUserName().equals(userName)) {
+        inDatabase = true;
+      }
+    }
+    if (inDatabase == true) {
+      MessageCli.PROFILE_LOADED.printMessage(userName);
+      loadedProfileUserName = userName;
+    } else {
+      MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+    }
   }
 
   public void unloadProfile() {
