@@ -39,30 +39,34 @@ public class InsuranceSystem {
   }
 
   public void createNewProfile(String userName, String age) {
-    // Create profile
-    Profile p = new Profile(userName, age);
-    userName = p.getUserName();
-    // Check if userName is unique
+    if (loadedProfileUserName == null) {
+      // Create profile
+      Profile p = new Profile(userName, age);
+      userName = p.getUserName();
+      // Check if userName is unique
 
-    if (p.checkAgeValid() && p.checkUserNameLength(userName)) {
-      boolean isUserNameValid = true;
-      for (int j = 0; j < database.size(); j++) {
-        if (database.get(j).getUserName().equals(p.getUserName())) {
-          isUserNameValid = false;
+      if (p.checkAgeValid() && p.checkUserNameLength(userName)) {
+        boolean isUserNameValid = true;
+        for (int j = 0; j < database.size(); j++) {
+          if (database.get(j).getUserName().equals(p.getUserName())) {
+            isUserNameValid = false;
+          }
         }
-      }
 
-      if (isUserNameValid == false) {
-        MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
-      } else {
-        database.add(p);
-        MessageCli.PROFILE_CREATED.printMessage(userName, age);
-      }
+        if (isUserNameValid == false) {
+          MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
+        } else {
+          database.add(p);
+          MessageCli.PROFILE_CREATED.printMessage(userName, age);
+        }
 
-    } else if (p.checkUserNameLength(userName) == false) {
-      MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
-    } else if (p.checkAgeValid() == false) {
-      MessageCli.INVALID_AGE.printMessage(age, userName);
+      } else if (p.checkUserNameLength(userName) == false) {
+        MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
+      } else if (p.checkAgeValid() == false) {
+        MessageCli.INVALID_AGE.printMessage(age, userName);
+      }
+    } else {
+      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
     }
   }
 
