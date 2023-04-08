@@ -39,8 +39,6 @@ public class InsuranceSystem {
   }
 
   public void createNewProfile(String userName, String age) {
-    // Check if age can be converted to an integer
-
     // Create profile
     Profile p = new Profile(userName, age);
     userName = p.getUserName();
@@ -87,7 +85,13 @@ public class InsuranceSystem {
   }
 
   public void unloadProfile() {
-    // TODO: Complete this method.
+    // Description: This unloads the currently-loaded profile
+    if (loadedProfileUserName == null) {
+      MessageCli.NO_PROFILE_LOADED.printMessage();
+    } else {
+      MessageCli.PROFILE_UNLOADED.printMessage(loadedProfileUserName);
+      loadedProfileUserName = null;
+    }
   }
 
   public void deleteProfile(String userName) {
