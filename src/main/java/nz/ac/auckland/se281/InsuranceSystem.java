@@ -27,12 +27,20 @@ public class InsuranceSystem {
     for (int i = 0; i < lengthDatabase; i++) {
       String userName = database.get(i).getUserName();
       int age = database.get(i).getAgeAsInt();
+      int policyCount = database.get(i).getPolicyCount();
+      
       if (userName.equals(loadedProfileUserName)) {
-        MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage(
-            "*** ", Integer.toString(i + 1), userName, Integer.toString(age));
+        if (policyCount != 1) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", Integer.toString(i + 1), userName, Integer.toString(age), Integer.toString(policyCount), "es");
+        } else {
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", Integer.toString(i + 1), userName, Integer.toString(age), "1", "y");
+        }
       } else {
-        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
-            Integer.toString(i + 1), userName, Integer.toString(age));
+        if (policyCount != 1) {
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", Integer.toString(i + 1), userName, Integer.toString(age), Integer.toString(policyCount), "es");
+        } else {
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", Integer.toString(i + 1), userName, Integer.toString(age), "1", "y");
+        }
       }
     }
   }
@@ -123,6 +131,22 @@ public class InsuranceSystem {
   }
 
   public void createPolicy(PolicyType type, String[] options) {
-    // TODO: Complete this method.
+    if (PolicyType.HOME == type) {
+      int sumInsured = Integer.parseInt(options[0]);
+      String address = options[1];
+      boolean isRental = false;
+
+      if (options[2] == "y") {
+        isRental = true;
+      }
+
+      database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
+    
+    } else if (PolicyType.CAR == type) {
+
+
+    } else {
+
+    }
   }
 }

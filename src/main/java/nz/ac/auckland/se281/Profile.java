@@ -3,6 +3,7 @@ package nz.ac.auckland.se281;
 public class Profile {
   private String userName;
   private String age;
+  private int policyCount = 0;
 
   public Profile(String userName, String age) {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
@@ -40,5 +41,16 @@ public class Profile {
     } else {
       return true;
     }
+  }
+
+  // Create home policy method
+  public void createHomePolicy(int sumInsured, String address, boolean isRental) {
+    PolicyHome homePolicy = new PolicyHome(sumInsured, address, isRental);
+    policyCount += 1;
+    MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
+  }
+
+  public int getPolicyCount() {
+    return policyCount;
   }
 }
