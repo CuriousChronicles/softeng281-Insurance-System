@@ -12,4 +12,8 @@ public class PolicyLife extends Policy{
         int amount = (1 + age/100) * sumInsured;
         return amount;
     }
+
+    public int getBasePremium() {
+        return basePremium();
+    }
 }

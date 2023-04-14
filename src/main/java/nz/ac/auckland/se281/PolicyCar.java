@@ -34,5 +34,8 @@ public class PolicyCar extends Policy{
         }
     }
 
+    public int getBasePremium() {
+        return basePremium();
+    }
     
 }

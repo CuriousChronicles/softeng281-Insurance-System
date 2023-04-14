@@ -5,6 +5,7 @@ public class Profile {
   private String age;
   private int policyCount = 0;
   private int lifePolicyCount = 0;
+  private int totalPremium = 0;
 
   public Profile(String userName, String age) {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
@@ -47,6 +48,8 @@ public class Profile {
     PolicyHome homePolicy = new PolicyHome(sumInsured, address, isRental);
     policyCount += 1;
     MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
+    
+    totalPremium += homePolicy.getBasePremium();
   }
 
   // Create car policy method
@@ -55,6 +58,8 @@ public class Profile {
     PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
     policyCount += 1;
     MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
+
+    totalPremium += carPolicy.getBasePremium();
   }
 
   // Create life policy method
@@ -68,10 +73,26 @@ public class Profile {
       policyCount += 1;
       lifePolicyCount = 1;
       MessageCli.NEW_POLICY_CREATED.printMessage("life", userName);
+
+      totalPremium += lifePolicy.getBasePremium();
     }
+  }
+
+  public int getTotalPremium() {
+    return totalPremium;
   }
 
   public int getPolicyCount() {
     return policyCount;
+  }
+
+  public int getDiscountPremium() {
+    if (getPolicyCount() == 2) {
+      return (90/100) * getTotalPremium();
+    } else if (getPolicyCount() >= 3) {
+      return (80/100) * getTotalPremium();
+    } else {
+      return getTotalPremium();
+    }
   }
 }
