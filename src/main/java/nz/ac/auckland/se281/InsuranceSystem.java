@@ -28,7 +28,7 @@ public class InsuranceSystem {
       String userName = database.get(i).getUserName();
       int age = database.get(i).getAgeAsInt();
       int policyCount = database.get(i).getPolicyCount();
-      
+
       if (userName.equals(loadedProfileUserName)) {
         if (policyCount != 1) {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", Integer.toString(i + 1), userName, Integer.toString(age), Integer.toString(policyCount), "es");
@@ -98,6 +98,7 @@ public class InsuranceSystem {
     } else {
       MessageCli.PROFILE_UNLOADED.printMessage(loadedProfileUserName);
       loadedProfileUserName = null;
+      loadedProfileIndex = -1;
     }
   }
 
@@ -131,22 +132,39 @@ public class InsuranceSystem {
   }
 
   public void createPolicy(PolicyType type, String[] options) {
-    if (PolicyType.HOME == type) {
-      int sumInsured = Integer.parseInt(options[0]);
-      String address = options[1];
-      boolean isRental = false;
-
-      if (options[2] == "y") {
-        isRental = true;
-      }
-
-      database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
-    
-    } else if (PolicyType.CAR == type) {
-
-
+    if (loadedProfileIndex == -1) {
+      MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
     } else {
-
+      if (PolicyType.HOME == type) {
+        int sumInsured = Integer.parseInt(options[0]);
+        String address = options[1];
+        boolean isRental = false;
+  
+        if (options[2] == "y") {
+          isRental = true;
+        }
+  
+        database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
+      
+      } else if (PolicyType.CAR == type) {
+        int age = database.get(loadedProfileIndex).getAgeAsInt();
+        int sumInsured = Integer.parseInt(options[0]);
+        String makeAndModel = options[1];
+        String licensePlate = options[2];
+        boolean mechBreakdown = false;
+  
+        if (options[2] == "y") {
+          mechBreakdown = true;
+        }
+  
+        database.get(loadedProfileIndex).createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+      } else {
+        // else create life policy
+        int age = database.get(loadedProfileIndex).getAgeAsInt();
+        int sumInsured = Integer.parseInt(options[0]);
+  
+        database.get(loadedProfileIndex).createLifePolicy(age, sumInsured);
+      }
     }
   }
 }

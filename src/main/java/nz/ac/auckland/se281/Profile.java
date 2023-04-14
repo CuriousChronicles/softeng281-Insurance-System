@@ -4,6 +4,7 @@ public class Profile {
   private String userName;
   private String age;
   private int policyCount = 0;
+  private int lifePolicyCount = 0;
 
   public Profile(String userName, String age) {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
@@ -22,14 +23,12 @@ public class Profile {
   // Create method to check validity of age
   public boolean checkAgeValid() {
     try {
-      // int number = Integer.parseInt(age);
       if (getAgeAsInt() <= 0) {
         return false;
       } else {
         return true;
       }
     } catch (NumberFormatException nfe) {
-      // MessageCli.INVALID_AGE.printMessage(age, userName);
       return false;
     }
   }
@@ -49,6 +48,26 @@ public class Profile {
     policyCount += 1;
     MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
   }
+
+  // Create car policy method
+  public void createCarPolicy(int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
+    PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+    policyCount += 1;
+    MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
+  }
+
+  // Create life policy method
+  public void createLifePolicy(int age, int sumInsured) {
+    if ((getAgeAsInt() > 100) || (lifePolicyCount == 1)) {
+      MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(userName);
+    } else {
+      PolicyLife lifePolicy = new PolicyLife(age, sumInsured);
+      policyCount += 1;
+      lifePolicyCount = 1;
+      MessageCli.NEW_POLICY_CREATED.printMessage("life", userName);
+    }
+  }
+  
 
   public int getPolicyCount() {
     return policyCount;
