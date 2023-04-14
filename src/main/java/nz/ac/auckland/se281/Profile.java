@@ -50,7 +50,8 @@ public class Profile {
   }
 
   // Create car policy method
-  public void createCarPolicy(int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
+  public void createCarPolicy(
+      int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
     PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
     policyCount += 1;
     MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
@@ -58,8 +59,10 @@ public class Profile {
 
   // Create life policy method
   public void createLifePolicy(int age, int sumInsured) {
-    if ((getAgeAsInt() > 100) || (lifePolicyCount == 1)) {
+    if ((getAgeAsInt() > 100)) {
       MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(userName);
+    } else if (lifePolicyCount == 1) {
+      MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(userName);
     } else {
       PolicyLife lifePolicy = new PolicyLife(age, sumInsured);
       policyCount += 1;
@@ -67,7 +70,6 @@ public class Profile {
       MessageCli.NEW_POLICY_CREATED.printMessage("life", userName);
     }
   }
-  
 
   public int getPolicyCount() {
     return policyCount;

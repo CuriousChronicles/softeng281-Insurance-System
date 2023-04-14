@@ -9,7 +9,7 @@ public class PolicyLife extends Policy{
     }
 
     int basePremium() {
-        int amount = (1 + age/100);
+        int amount = (1 + age/100) * sumInsured;
         return amount;
     }
 }
