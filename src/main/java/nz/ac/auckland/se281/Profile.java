@@ -88,8 +88,10 @@ public class Profile {
 
   public int getDiscountPremium() {
     if (getPolicyCount() == 2) {
+      // MessageCli.DISCOUNT_TWO.printMessage();
       return (90/100) * getTotalPremium();
     } else if (getPolicyCount() >= 3) {
+      // MessageCli.DISCOUNT_MULTIPLE.printMessage();
       return (80/100) * getTotalPremium();
     } else {
       return getTotalPremium();

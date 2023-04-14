@@ -23,23 +23,26 @@ public class InsuranceSystem {
     } else {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(lengthDatabase), "s", ":");
     }
+
     // Print the database
     for (int i = 0; i < lengthDatabase; i++) {
       String userName = database.get(i).getUserName();
-      int age = database.get(i).getAgeAsInt();
+      String index = Integer.toString(i + 1);
+      String age = Integer.toString(database.get(i).getAgeAsInt());
       int policyCount = database.get(i).getPolicyCount();
+      String discountTotal = Integer.toString(database.get(i).getDiscountPremium());
 
       if (userName.equals(loadedProfileUserName)) {
         if (policyCount != 1) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", Integer.toString(i + 1), userName, Integer.toString(age), Integer.toString(policyCount), "es");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index, userName, age, Integer.toString(policyCount), "es");
         } else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", Integer.toString(i + 1), userName, Integer.toString(age), "1", "y");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index, userName, age, Integer.toString(policyCount), "y");
         }
       } else {
         if (policyCount != 1) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", Integer.toString(i + 1), userName, Integer.toString(age), Integer.toString(policyCount), "es");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index, userName, age, Integer.toString(policyCount), "es");
         } else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", Integer.toString(i + 1), userName, Integer.toString(age), "1", "y");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index, userName, age, Integer.toString(policyCount), "y");
         }
       }
     }
@@ -139,30 +142,32 @@ public class InsuranceSystem {
         int sumInsured = Integer.parseInt(options[0]);
         String address = options[1];
         boolean isRental = false;
-  
-        if (options[2] == "y") {
+
+        if (options[2] == "yes") {
           isRental = true;
         }
-  
+
         database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
-      
+
       } else if (PolicyType.CAR == type) {
         int age = database.get(loadedProfileIndex).getAgeAsInt();
         int sumInsured = Integer.parseInt(options[0]);
         String makeAndModel = options[1];
         String licensePlate = options[2];
         boolean mechBreakdown = false;
-  
-        if (options[2] == "y") {
+
+        if (options[2] == "yes") {
           mechBreakdown = true;
         }
-  
-        database.get(loadedProfileIndex).createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+
+        database
+            .get(loadedProfileIndex)
+            .createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
       } else {
         // else create life policy
         int age = database.get(loadedProfileIndex).getAgeAsInt();
         int sumInsured = Integer.parseInt(options[0]);
-  
+
         database.get(loadedProfileIndex).createLifePolicy(age, sumInsured);
       }
     }
