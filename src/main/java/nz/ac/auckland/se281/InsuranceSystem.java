@@ -29,20 +29,27 @@ public class InsuranceSystem {
       String userName = database.get(i).getUserName();
       String index = Integer.toString(i + 1);
       String age = Integer.toString(database.get(i).getAgeAsInt());
-      int policyCount = database.get(i).getPolicyCount();
-      String discountTotal = Integer.toString(database.get(i).getDiscountPremium());
+      int policyCount = database.get(i).policies.size();
 
       if (userName.equals(loadedProfileUserName)) {
         if (policyCount != 1) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index, userName, age, Integer.toString(policyCount), "es");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
+              "*** ", index, userName, age, Integer.toString(policyCount), "ies");
+          database.get(i).printProfPolicies();
         } else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("*** ", index, userName, age, Integer.toString(policyCount), "y");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
+              "*** ", index, userName, age, Integer.toString(policyCount), "y");
+          database.get(i).printProfPolicies();
         }
       } else {
         if (policyCount != 1) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index, userName, age, Integer.toString(policyCount), "es");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
+              "", index, userName, age, Integer.toString(policyCount), "ies");
+          database.get(i).printProfPolicies();
         } else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage("", index, userName, age, Integer.toString(policyCount), "y");
+          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
+              "", index, userName, age, Integer.toString(policyCount), "y");
+          database.get(i).printProfPolicies();
         }
       }
     }
@@ -143,32 +150,14 @@ public class InsuranceSystem {
         String address = options[1];
         boolean isRental = false;
 
-        if (options[2] == "yes") {
+        if (options[2].equals("yes")) {
           isRental = true;
+        } else {
+          isRental = false;
         }
 
+        // For the loaded profile create a home policy
         database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
-
-      } else if (PolicyType.CAR == type) {
-        int age = database.get(loadedProfileIndex).getAgeAsInt();
-        int sumInsured = Integer.parseInt(options[0]);
-        String makeAndModel = options[1];
-        String licensePlate = options[2];
-        boolean mechBreakdown = false;
-
-        if (options[2] == "yes") {
-          mechBreakdown = true;
-        }
-
-        database
-            .get(loadedProfileIndex)
-            .createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
-      } else {
-        // else create life policy
-        int age = database.get(loadedProfileIndex).getAgeAsInt();
-        int sumInsured = Integer.parseInt(options[0]);
-
-        database.get(loadedProfileIndex).createLifePolicy(age, sumInsured);
       }
     }
   }
