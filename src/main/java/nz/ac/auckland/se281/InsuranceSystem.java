@@ -145,10 +145,10 @@ public class InsuranceSystem {
     if (loadedProfileIndex == -1) {
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
     } else {
-      if (PolicyType.HOME == type) {
+      if (type == PolicyType.HOME) {
         int sumInsured = Integer.parseInt(options[0]);
         String address = options[1];
-        boolean isRental = false;
+        boolean isRental;
 
         if (options[2].equals("yes")) {
           isRental = true;
@@ -158,6 +158,22 @@ public class InsuranceSystem {
 
         // For the loaded profile create a home policy
         database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
+
+      } else if (type == PolicyType.CAR) {
+        int age = database.get(loadedProfileIndex).getAgeAsInt();
+        int sumInsured = Integer.parseInt(options[0]);
+        String makeAndModel = options[1];
+        String licensePlate = options[2];
+        boolean mechBreakdown;
+
+        if (options[3].equals("yes")) {
+          mechBreakdown = true;
+        } else {
+          mechBreakdown = false;
+        }
+
+        // For the loaded profile create a car policy
+        database.get(loadedProfileIndex).createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
       }
     }
   }

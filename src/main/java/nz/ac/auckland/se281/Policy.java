@@ -32,10 +32,9 @@ abstract class Policy {
   }
 
   public void printPolicy() {
-    // MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
-    //     Integer.toString(sumInsured),
-    //     Integer.toString(basePremiumAmount),
-    //     Integer.toString(policyDiscount()));
-    System.out.println("oh what is going on here?");
+    MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
+        Integer.toString(sumInsured),
+        Integer.toString(basePremium()),
+        Integer.toString(policyDiscount()));
   }
 }

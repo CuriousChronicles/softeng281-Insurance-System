@@ -22,18 +22,8 @@ public class PolicyHome extends Policy {
     }
   }
 
-  //   public int getBasePremium() {
-  //     return basePremium();
-  //   }
-
   @Override
   public void printPolicy() {
-    // System.out.println(Integer.toString(basePremium()));
-    // MessageCli.PRINT_DB_HOME_POLICY.printMessage(
-    //     address,
-    //     Integer.toString(super.getSumInsured()),
-    //     Integer.toString(basePremium()),
-    //     Integer.toString(super.policyDiscount()));
 
     MessageCli.PRINT_DB_HOME_POLICY.printMessage(
         address, Integer.toString(super.getSumInsured()), Integer.toString(basePremium()), Integer.toString(super.policyDiscount()));

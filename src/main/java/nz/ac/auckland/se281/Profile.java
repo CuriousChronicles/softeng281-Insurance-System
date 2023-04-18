@@ -52,16 +52,9 @@ public class Profile {
     PolicyHome homePolicy = new PolicyHome(sumInsured, address, isRental);
     policies.add(homePolicy);
     homePolicy.incrementPolicyCount();
-    //homePolicy.basePremium(sumInsured);
+
     MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
   }
-
-  // Create car policy method
-  // public void createCarPolicy(
-  //     int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
-  //   PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
-  //   MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
-  // }
 
   // // Create life policy method
   // public void createLifePolicy(int age, int sumInsured) {
@@ -80,5 +73,13 @@ public class Profile {
     for (Policy policy : policies) {
       policy.printPolicy(); 
     }
+  }
+
+  public void createCarPolicy(int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
+    PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+    policies.add(carPolicy);
+    carPolicy.incrementPolicyCount();
+
+    MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
   }
 }
