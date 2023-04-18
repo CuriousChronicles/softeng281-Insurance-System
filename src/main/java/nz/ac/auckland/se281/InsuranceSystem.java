@@ -173,7 +173,15 @@ public class InsuranceSystem {
         }
 
         // For the loaded profile create a car policy
-        database.get(loadedProfileIndex).createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+        database
+            .get(loadedProfileIndex)
+            .createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+
+      } else {
+        int age = database.get(loadedProfileIndex).getAgeAsInt();
+        int sumInsured = Integer.parseInt(options[0]);
+
+        database.get(loadedProfileIndex).createLifePolicy(age, sumInsured);
       }
     }
   }

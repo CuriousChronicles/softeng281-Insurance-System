@@ -4,8 +4,8 @@ public class PolicyHome extends Policy {
   private String address;
   private boolean isRental;
 
-  public PolicyHome(int sumInsured, String address, boolean isRental) {
-    super(sumInsured);
+  public PolicyHome(int sumInsured, int policyCount, String address, boolean isRental) {
+    super(sumInsured, policyCount);
     this.address = address;
     this.isRental = isRental;
   }
@@ -26,6 +26,8 @@ public class PolicyHome extends Policy {
   public void printPolicy() {
 
     MessageCli.PRINT_DB_HOME_POLICY.printMessage(
-        address, Integer.toString(super.getSumInsured()), Integer.toString(basePremium()), Integer.toString(super.policyDiscount()));
+        address, Integer.toString(super.getSumInsured()), 
+        Integer.toString(basePremium()), 
+        Integer.toString(super.policyDiscount()));
   }
 }

@@ -7,8 +7,8 @@ public class PolicyCar extends Policy {
   boolean mechBreakdown;
 
   public PolicyCar(
-      int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
-    super(sumInsured);
+      int age, int sumInsured, int policyCount,String makeAndModel, String licensePlate, boolean mechBreakdown) {
+    super(sumInsured, policyCount);
     this.age = age;
     this.makeAndModel = makeAndModel;
     this.licensePlate = licensePlate;

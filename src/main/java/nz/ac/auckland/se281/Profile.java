@@ -2,14 +2,14 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
-import nz.ac.auckland.se281.Main.PolicyType;
-
 public class Profile {
-  private String userName;
-  private String age;
-  private int lifePolicyCount = 0;
 
   ArrayList<Policy> policies = new ArrayList<Policy>();
+
+  private String userName;
+  private String age;
+  private int policyCount = 0;
+  private int lifePolicyCount = 0;
 
   public Profile(String userName, String age) {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
@@ -47,39 +47,52 @@ public class Profile {
     }
   }
 
+  public void incrementPolicyCount() {
+    policyCount += 1;
+  }
+
+  public int getPolicyCount() {
+    return policyCount;
+  }
+
   // Create home policy method
-  public void createHomePolicy(int sumInsured, String address, boolean isRental) {
-    PolicyHome homePolicy = new PolicyHome(sumInsured, address, isRental);
+  public void createHomePolicy( int sumInsured, String address, boolean isRental) {
+    incrementPolicyCount();
+    PolicyHome homePolicy = new PolicyHome(sumInsured, getPolicyCount(), address, isRental);
     policies.add(homePolicy);
-    homePolicy.incrementPolicyCount();
 
     MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
   }
 
-  // // Create life policy method
-  // public void createLifePolicy(int age, int sumInsured) {
-  //   if ((getAgeAsInt() > 100)) {
-  //     MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(userName);
-  //   } else if (lifePolicyCount == 1) {
-  //     MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(userName);
-  //   } else {
-  //     PolicyLife lifePolicy = new PolicyLife(age, sumInsured);
-  //     lifePolicyCount = 1;
-  //     MessageCli.NEW_POLICY_CREATED.printMessage("life", userName);
-  //   }
-  // }
+  public void createCarPolicy(
+      int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
+    incrementPolicyCount();
+      PolicyCar carPolicy =
+        new PolicyCar(age, sumInsured, getPolicyCount(), makeAndModel, licensePlate, mechBreakdown);
+    policies.add(carPolicy);
 
-  public void printProfPolicies() {
-    for (Policy policy : policies) {
-      policy.printPolicy(); 
+
+    MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
+  }
+
+  public void createLifePolicy(int age, int sumInsured) {
+    if (age > 100) {
+      MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(userName);
+    } else if (lifePolicyCount == 1) {
+      MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(userName);
+    } else {
+      incrementPolicyCount();
+      PolicyLife lifePolicy = new PolicyLife(age, sumInsured, getPolicyCount());
+      policies.add(lifePolicy);
+      lifePolicyCount = 1;
+
+      MessageCli.NEW_POLICY_CREATED.printMessage("life", userName);
     }
   }
 
-  public void createCarPolicy(int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
-    PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
-    policies.add(carPolicy);
-    carPolicy.incrementPolicyCount();
-
-    MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
+  public void printProfPolicies() {
+    for (Policy policy : policies) {
+      policy.printPolicy();
+    }
   }
 }
