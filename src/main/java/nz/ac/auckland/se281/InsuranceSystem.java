@@ -29,24 +29,26 @@ public class InsuranceSystem {
       String index = Integer.toString(i + 1);
       String age = Integer.toString(database.get(i).getAgeAsInt());
       int policiesSize = database.get(i).policies.size();
+      int getTotalPremium = database.get(i).getTotalPremium();
+
       if (userName.equals(loadedProfileUserName)) {
         if (policiesSize != 1) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "*** ", index, userName, age, Integer.toString(policiesSize), "ies");
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "*** ", index, userName, age, Integer.toString(policiesSize), "ies", Integer.toString(getTotalPremium));
           database.get(i).printProfPolicies();
         } else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "*** ", index, userName, age, Integer.toString(policiesSize), "y");
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "*** ", index, userName, age, Integer.toString(policiesSize), "y", Integer.toString(getTotalPremium));
           database.get(i).printProfPolicies();
         }
       } else {
         if (policiesSize!= 1) {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "", index, userName, age, Integer.toString(policiesSize), "ies");
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "", index, userName, age, Integer.toString(policiesSize), "ies", Integer.toString(getTotalPremium));
           database.get(i).printProfPolicies();
         } else {
-          MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "", index, userName, age, Integer.toString(policiesSize), "y");
+          MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
+              "", index, userName, age, Integer.toString(policiesSize), "y", Integer.toString(getTotalPremium));
           database.get(i).printProfPolicies();
         }
       }

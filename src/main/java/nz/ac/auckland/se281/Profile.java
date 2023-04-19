@@ -8,7 +8,6 @@ public class Profile {
 
   private String userName;
   private String age;
-  // private int policies.size() = policies.size();
   private int lifePolicyCount = 0;
 
   public Profile(String userName, String age) {
@@ -84,5 +83,13 @@ public class Profile {
     for (Policy policy : policies) {
       policy.printPolicy(policies.size());
     }
+  }
+
+  public int getTotalPremium() {
+    int total = 0;
+    for (Policy policy : policies) {
+      total = total + policy.policyDiscount(policies.size());
+    }
+    return total;
   }
 }

@@ -1,12 +1,11 @@
 package nz.ac.auckland.se281;
 
-abstract class Policy{
+abstract class Policy {
   protected int sumInsured;
 
   public Policy(int sumInsured) {
     this.sumInsured = sumInsured;
   }
-  
 
   abstract int basePremium();
 
@@ -15,7 +14,6 @@ abstract class Policy{
   }
 
   public int policyDiscount(int policyCount) {
-    // System.out.println(policyCount);
     if (policyCount == 2) {
       MessageCli.DISCOUNT_TWO.printMessage();
       return (90 * basePremium()) / 100;
@@ -23,7 +21,6 @@ abstract class Policy{
       MessageCli.DISCOUNT_MULTIPLE.printMessage();
       return (80 * basePremium()) / 100;
     } else {
-      System.out.println("no discount applied");
       return basePremium();
     }
   }
