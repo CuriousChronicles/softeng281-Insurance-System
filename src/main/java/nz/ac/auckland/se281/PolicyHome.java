@@ -1,11 +1,11 @@
 package nz.ac.auckland.se281;
 
-public class PolicyHome extends Policy {
+public class PolicyHome extends Policy{
   private String address;
   private boolean isRental;
 
-  public PolicyHome(int sumInsured, int policyCount, String address, boolean isRental) {
-    super(sumInsured, policyCount);
+  public PolicyHome(int sumInsured, String address, boolean isRental) {
+    super(sumInsured);
     this.address = address;
     this.isRental = isRental;
   }
@@ -16,18 +16,19 @@ public class PolicyHome extends Policy {
 
   public int basePremium() {
     if (isRental == true) {
-      return (2 * super.getSumInsured())/100;
+      return (2 * sumInsured) / 100;
     } else {
-      return super.getSumInsured()/100 ;
+      return sumInsured / 100;
     }
   }
 
   @Override
-  public void printPolicy() {
+  public void printPolicy(int policyCount) {
 
     MessageCli.PRINT_DB_HOME_POLICY.printMessage(
-        address, Integer.toString(super.getSumInsured()), 
-        Integer.toString(basePremium()), 
-        Integer.toString(super.policyDiscount()));
+        address,
+        Integer.toString(sumInsured),
+        Integer.toString(basePremium()),
+        Integer.toString(super.policyDiscount(policyCount)));
   }
 }

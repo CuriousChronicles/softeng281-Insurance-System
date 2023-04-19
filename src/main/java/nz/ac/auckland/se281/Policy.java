@@ -1,25 +1,20 @@
 package nz.ac.auckland.se281;
 
-abstract class Policy {
-  private int sumInsured;
-  private int policyCount;
+abstract class Policy{
+  protected int sumInsured;
 
-  public Policy(int sumInsured, int policyCount) {
+  public Policy(int sumInsured) {
     this.sumInsured = sumInsured;
-    this.policyCount = policyCount;
   }
-
-  public int getSumInsured() {
-    return sumInsured;
-  }
-
-  public int getPolicyCount() {
-    return policyCount;
-  }
+  
 
   abstract int basePremium();
 
-  public int policyDiscount() {
+  public int getBasePremium() {
+    return basePremium();
+  }
+
+  public int policyDiscount(int policyCount) {
     // System.out.println(policyCount);
     if (policyCount == 2) {
       MessageCli.DISCOUNT_TWO.printMessage();
@@ -33,10 +28,5 @@ abstract class Policy {
     }
   }
 
-  public void printPolicy() {
-    MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
-        Integer.toString(sumInsured),
-        Integer.toString(basePremium()),
-        Integer.toString(policyDiscount()));
-  }
+  abstract void printPolicy(int policyCount);
 }

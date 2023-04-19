@@ -8,14 +8,13 @@ public class Profile {
 
   private String userName;
   private String age;
-  private int policyCount = 0;
+  // private int policies.size() = policies.size();
   private int lifePolicyCount = 0;
 
   public Profile(String userName, String age) {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     this.age = age;
   }
-
   // Create methods to access username and age
   public String getUserName() {
     return userName;
@@ -47,18 +46,13 @@ public class Profile {
     }
   }
 
-  public void incrementPolicyCount() {
-    policyCount += 1;
-  }
-
   public int getPolicyCount() {
-    return policyCount;
+    return policies.size();
   }
 
   // Create home policy method
-  public void createHomePolicy( int sumInsured, String address, boolean isRental) {
-    incrementPolicyCount();
-    PolicyHome homePolicy = new PolicyHome(sumInsured, getPolicyCount(), address, isRental);
+  public void createHomePolicy(int sumInsured, String address, boolean isRental) {
+    PolicyHome homePolicy = new PolicyHome(sumInsured, address, isRental);
     policies.add(homePolicy);
 
     MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
@@ -66,11 +60,8 @@ public class Profile {
 
   public void createCarPolicy(
       int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
-    incrementPolicyCount();
-      PolicyCar carPolicy =
-        new PolicyCar(age, sumInsured, getPolicyCount(), makeAndModel, licensePlate, mechBreakdown);
+    PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
     policies.add(carPolicy);
-
 
     MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
   }
@@ -81,8 +72,7 @@ public class Profile {
     } else if (lifePolicyCount == 1) {
       MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(userName);
     } else {
-      incrementPolicyCount();
-      PolicyLife lifePolicy = new PolicyLife(age, sumInsured, getPolicyCount());
+      PolicyLife lifePolicy = new PolicyLife(age, sumInsured);
       policies.add(lifePolicy);
       lifePolicyCount = 1;
 
@@ -92,7 +82,7 @@ public class Profile {
 
   public void printProfPolicies() {
     for (Policy policy : policies) {
-      policy.printPolicy();
+      policy.printPolicy(policies.size());
     }
   }
 }

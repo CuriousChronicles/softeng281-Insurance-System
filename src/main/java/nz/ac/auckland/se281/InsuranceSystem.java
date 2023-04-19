@@ -1,5 +1,4 @@
 package nz.ac.auckland.se281;
-
 import java.util.ArrayList;
 import nz.ac.auckland.se281.Main.PolicyType;
 
@@ -29,37 +28,34 @@ public class InsuranceSystem {
       String userName = database.get(i).getUserName();
       String index = Integer.toString(i + 1);
       String age = Integer.toString(database.get(i).getAgeAsInt());
-      int policyCount = database.get(i).policies.size();
-
+      int policiesSize = database.get(i).policies.size();
       if (userName.equals(loadedProfileUserName)) {
-        if (policyCount != 1) {
+        if (policiesSize != 1) {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "*** ", index, userName, age, Integer.toString(policyCount), "ies");
+              "*** ", index, userName, age, Integer.toString(policiesSize), "ies");
           database.get(i).printProfPolicies();
         } else {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "*** ", index, userName, age, Integer.toString(policyCount), "y");
+              "*** ", index, userName, age, Integer.toString(policiesSize), "y");
           database.get(i).printProfPolicies();
         }
       } else {
-        if (policyCount != 1) {
+        if (policiesSize!= 1) {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "", index, userName, age, Integer.toString(policyCount), "ies");
+              "", index, userName, age, Integer.toString(policiesSize), "ies");
           database.get(i).printProfPolicies();
         } else {
           MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
-              "", index, userName, age, Integer.toString(policyCount), "y");
+              "", index, userName, age, Integer.toString(policiesSize), "y");
           database.get(i).printProfPolicies();
         }
       }
     }
   }
-
   public void createNewProfile(String userName, String age) {
     if (loadedProfileUserName == null) {
       Profile p = new Profile(userName, age);
       userName = p.getUserName();
-
       // Check if userName is unique
       if (p.checkAgeValid() && p.checkUserNameLength(userName)) {
         boolean isUserNameValid = true;
@@ -83,12 +79,10 @@ public class InsuranceSystem {
       MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
     }
   }
-
   public void loadProfile(String userName) {
     // Description: command loads a profile into the system
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     // if profile is loaded successfully, print success message
-
     for (int i = 0; i < database.size(); i++) {
       if (database.get(i).getUserName().equals(userName)) {
         loadedProfileIndex = i;
@@ -100,7 +94,6 @@ public class InsuranceSystem {
       }
     }
   }
-
   public void unloadProfile() {
     // Description: This unloads the currently-loaded profile
     if (loadedProfileUserName == null) {
@@ -111,20 +104,17 @@ public class InsuranceSystem {
       loadedProfileIndex = -1;
     }
   }
-
   public void deleteProfile(String userName) {
     // Description: This deletes a profile from the database
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     boolean inDatabase = false;
     int index = 0;
-
     for (int i = 0; i < database.size(); i++) {
       if (database.get(i).getUserName().equals(userName)) {
         inDatabase = true;
         index = i;
       }
     }
-
     if (inDatabase == true) {
       // delete only if the profile is not currently loaded
       if (loadedProfileUserName == null) {
@@ -140,7 +130,6 @@ public class InsuranceSystem {
       MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
     }
   }
-
   public void createPolicy(PolicyType type, String[] options) {
     if (loadedProfileIndex == -1) {
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
@@ -149,23 +138,19 @@ public class InsuranceSystem {
         int sumInsured = Integer.parseInt(options[0]);
         String address = options[1];
         boolean isRental;
-
         if (options[2].equals("yes")) {
           isRental = true;
         } else {
           isRental = false;
         }
-
         // For the loaded profile create a home policy
         database.get(loadedProfileIndex).createHomePolicy(sumInsured, address, isRental);
-
       } else if (type == PolicyType.CAR) {
         int age = database.get(loadedProfileIndex).getAgeAsInt();
         int sumInsured = Integer.parseInt(options[0]);
         String makeAndModel = options[1];
         String licensePlate = options[2];
         boolean mechBreakdown;
-
         if (options[3].equals("yes")) {
           mechBreakdown = true;
         } else {
@@ -173,9 +158,7 @@ public class InsuranceSystem {
         }
 
         // For the loaded profile create a car policy
-        database
-            .get(loadedProfileIndex)
-            .createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+        database.get(loadedProfileIndex).createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
 
       } else {
         int age = database.get(loadedProfileIndex).getAgeAsInt();
