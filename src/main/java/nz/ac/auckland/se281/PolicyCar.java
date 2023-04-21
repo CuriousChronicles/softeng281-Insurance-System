@@ -6,13 +6,14 @@ public class PolicyCar extends Policy {
   String licensePlate;
   boolean mechBreakdown;
 
-  public PolicyCar(int age, int sumInsured,String makeAndModel, String licensePlate, boolean mechBreakdown) {
+  public PolicyCar(int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
     super(sumInsured);
     this.age = age;
     this.makeAndModel = makeAndModel;
     this.licensePlate = licensePlate;
     this.mechBreakdown = mechBreakdown;
   }
+
   public String getMakeAndModel() {
     return makeAndModel;
   }
@@ -20,7 +21,9 @@ public class PolicyCar extends Policy {
     return licensePlate;
   }
 
+  // Calculate the base premium for car policy
   int basePremium() {
+    // If the car is insured for mechanical breakdown, then add $80 to base premium
     if (mechBreakdown == true) {
       if (age < 25) {
         int amount = (15 * sumInsured) / 100;

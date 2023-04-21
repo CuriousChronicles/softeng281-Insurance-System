@@ -13,6 +13,7 @@ abstract class Policy {
     return basePremium();
   }
 
+  // Method to apply discount to base premium of policies
   public int policyDiscount(int policyCount) {
     if (policyCount == 2) {
       MessageCli.DISCOUNT_TWO.printMessage();

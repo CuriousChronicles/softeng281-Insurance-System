@@ -14,7 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
   MainTest.Task1.class,
   MainTest.Task2.class, // Uncomment this line when to start Task 2
   MainTest.Task3.class, // Uncomment this line when to start Task 3
-  // MainTest.YourTests.class, // Uncomment this line to run your own tests
+  MainTest.YourTests.class, // Uncomment this line to run your own tests
 })
 public class MainTest {
   public static class Task1 extends CliTest {
@@ -363,16 +363,77 @@ public class MainTest {
 
     @Test
     public void TY_01_your_own_test() throws Exception {
-      // Write your own test here, in the same format as the other tests.
-      runCommands(PRINT_DB);
-      assertContains("");
+      // Deletes a profile while another profile is loaded
+      // Checks to see if correct profile is still loaded
+
+      runCommands(
+          CREATE_PROFILE,
+          "SamA",
+          38,
+          CREATE_PROFILE,
+          "SuperintelligentAI",
+          1000000,
+          CREATE_PROFILE,
+          "Bob",
+          20,
+          CREATE_PROFILE,
+          "Elon",
+          51,
+          CREATE_PROFILE,
+          "Eliezer",
+          43,
+          LOAD_PROFILE,
+          "Elon",
+          DELETE_PROFILE,
+          "Bob",
+          PRINT_DB);
+
+        assertContains("Profile loaded for Elon.");
+        assertContains("*** 3: Elon, 51, 0 policies for a total of $0");
+        assertDoesNotContain("*** 4: Eliezer, 43, 0 policies for a total of $0");
+        assertDoesNotContain(" 3: Bob, 20, 0 policies for a total of $0");
     }
 
     @Test
     public void TY_02_your_own_test() throws Exception {
-      // Write your own test here, in the same format as the other tests.
-      runCommands(PRINT_DB);
-      assertContains("");
+      runCommands(
+          CREATE_PROFILE,
+          "Never",
+          20,
+          CREATE_PROFILE,
+          "Gonna",
+          20,
+          CREATE_PROFILE,
+          "Give",
+          20,
+          CREATE_PROFILE,
+          "You",
+          20,
+          CREATE_PROFILE,
+          "Up.",
+          20,
+          LOAD_PROFILE,
+          "You",
+          DELETE_PROFILE,
+          "NEVER",
+          DELETE_PROFILE,
+          "gonna",
+          DELETE_PROFILE,
+          "give",
+          DELETE_PROFILE,
+          "you",
+          DELETE_PROFILE,
+          "up.",
+          PRINT_DB);
+
+        assertContains("Profile loaded for You.");
+        assertContains("Cannot delete profile for You while loaded. No profile was deleted.");
+        assertDoesNotContain("Profile deleted for You");
+        assertContains("Profile deleted for Never");
+        assertContains("Profile deleted for Gonna");
+        assertContains("Profile deleted for Give");
+        assertContains("Profile deleted for Up");
+
     }
   }
 

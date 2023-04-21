@@ -14,6 +14,7 @@ public class Profile {
     this.userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     this.age = age;
   }
+
   // Create methods to access username and age
   public String getUserName() {
     return userName;
@@ -25,7 +26,10 @@ public class Profile {
 
   // Create method to check validity of age
   public boolean checkAgeValid() {
+    // Use a try-catch statement, if we can't convert string to an integer then return false
+    // Return false if the integer is less than zero
     try {
+      // 
       if (getAgeAsInt() <= 0) {
         return false;
       } else {
@@ -57,6 +61,7 @@ public class Profile {
     MessageCli.NEW_POLICY_CREATED.printMessage("home", userName);
   }
 
+  // Create car policy method
   public void createCarPolicy(
       int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
     PolicyCar carPolicy = new PolicyCar(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
@@ -65,6 +70,7 @@ public class Profile {
     MessageCli.NEW_POLICY_CREATED.printMessage("car", userName);
   }
 
+  // Create life policy method
   public void createLifePolicy(int age, int sumInsured) {
     if (age > 100) {
       MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(userName);

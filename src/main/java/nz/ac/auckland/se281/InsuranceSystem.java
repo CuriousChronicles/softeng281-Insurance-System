@@ -1,5 +1,7 @@
 package nz.ac.auckland.se281;
+
 import java.util.ArrayList;
+
 import nz.ac.auckland.se281.Main.PolicyType;
 
 public class InsuranceSystem {
@@ -34,26 +36,55 @@ public class InsuranceSystem {
       if (userName.equals(loadedProfileUserName)) {
         if (policiesSize != 1) {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
-              "*** ", index, userName, age, Integer.toString(policiesSize), "ies", Integer.toString(getTotalPremium));
+              "*** ", 
+              index, 
+              userName, 
+              age, 
+              Integer.toString(policiesSize), 
+              "ies", 
+              Integer.toString(getTotalPremium));
+
           database.get(i).printProfPolicies();
         } else {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
-              "*** ", index, userName, age, Integer.toString(policiesSize), "y", Integer.toString(getTotalPremium));
+              "*** ", 
+              index, 
+              userName, 
+              age, 
+              Integer.toString(policiesSize), 
+              "y", 
+              Integer.toString(getTotalPremium));
+
           database.get(i).printProfPolicies();
         }
       } else {
         if (policiesSize!= 1) {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
-              "", index, userName, age, Integer.toString(policiesSize), "ies", Integer.toString(getTotalPremium));
+              "", 
+              index, 
+              userName, 
+              age, 
+              Integer.toString(policiesSize), 
+              "ies", 
+              Integer.toString(getTotalPremium));
+
           database.get(i).printProfPolicies();
         } else {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
-              "", index, userName, age, Integer.toString(policiesSize), "y", Integer.toString(getTotalPremium));
+              "", 
+              index, 
+              userName, 
+              age, 
+              Integer.toString(policiesSize), 
+              "y", 
+              Integer.toString(getTotalPremium));
+
           database.get(i).printProfPolicies();
         }
       }
     }
   }
+  
   public void createNewProfile(String userName, String age) {
     if (loadedProfileUserName == null) {
       Profile p = new Profile(userName, age);
@@ -160,7 +191,8 @@ public class InsuranceSystem {
         }
 
         // For the loaded profile create a car policy
-        database.get(loadedProfileIndex).createCarPolicy(age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
+        database.get(loadedProfileIndex).createCarPolicy(
+          age, sumInsured, makeAndModel, licensePlate, mechBreakdown);
 
       } else {
         int age = database.get(loadedProfileIndex).getAgeAsInt();
