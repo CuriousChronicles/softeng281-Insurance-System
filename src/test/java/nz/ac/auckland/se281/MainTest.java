@@ -388,10 +388,10 @@ public class MainTest {
           "Bob",
           PRINT_DB);
 
-        assertContains("Profile loaded for Elon.");
-        assertContains("*** 3: Elon, 51, 0 policies for a total of $0");
-        assertDoesNotContain("*** 4: Eliezer, 43, 0 policies for a total of $0");
-        assertDoesNotContain(" 3: Bob, 20, 0 policies for a total of $0");
+      assertContains("Profile loaded for Elon.");
+      assertContains("*** 3: Elon, 51, 0 policies for a total of $0");
+      assertDoesNotContain("*** 4: Eliezer, 43, 0 policies for a total of $0");
+      assertDoesNotContain(" 3: Bob, 20, 0 policies for a total of $0");
     }
 
     @Test
@@ -426,14 +426,46 @@ public class MainTest {
           "up.",
           PRINT_DB);
 
-        assertContains("Profile loaded for You.");
-        assertContains("Cannot delete profile for You while loaded. No profile was deleted.");
-        assertDoesNotContain("Profile deleted for You");
-        assertContains("Profile deleted for Never");
-        assertContains("Profile deleted for Gonna");
-        assertContains("Profile deleted for Give");
-        assertContains("Profile deleted for Up");
+      assertContains("Profile loaded for You.");
+      assertContains("Cannot delete profile for You while loaded. No profile was deleted.");
+      assertDoesNotContain("Profile deleted for You");
+      assertContains("Profile deleted for Never");
+      assertContains("Profile deleted for Gonna");
+      assertContains("Profile deleted for Give");
+      assertContains("Profile deleted for Up");
+    }
 
+    @Test
+    public void TY_03_your_own_test() throws Exception {
+      // Print empty database
+      runCommands(PRINT_DB);
+      assertContains("Database has 0 profiles.");
+    }
+
+    @Test
+    public void discount_logic() throws Exception {
+      runCommands(
+          CREATE_PROFILE,
+          "kay",
+          21,
+          LOAD_PROFILE,
+          "kay",
+          POLICY_HOME,
+          options("12345678", "seseame street", "no"),
+          POLICY_HOME,
+          options("9877", "seseame street", "no"),
+          POLICY_HOME,
+          options("98", "seseame street", "no"),
+          UNLOAD_PROFILE,
+          PRINT_DB);
+
+      assertContains("Profile loaded for Kay.");
+      assertContains("Database has 1 profile:");
+      assertContains("1: Kay, 21, 3 policies for a total of $98842");
+      assertContains(
+          "Home Policy (seseame street, Sum Insured: $12345678, Premium: $123456 -> $98764)");
+      assertContains("Home Policy (seseame street, Sum Insured: $9877, Premium: $98 -> $78)");
+      assertContains("Home Policy (seseame street, Sum Insured: $98, Premium: $0 -> $0)");
     }
   }
 

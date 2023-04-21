@@ -32,7 +32,10 @@ public class InsuranceSystem {
       int policiesSize = database.get(i).policies.size();
       int getTotalPremium = database.get(i).getTotalPremium();
 
+      // If the username is equal to the loaded profile username, then print out the profile with
+      // '***'
       if (userName.equals(loadedProfileUserName)) {
+        // Take into account if we print 'policy' or 'policies'
         if (policiesSize != 1) {
           MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
               "*** ",
@@ -115,7 +118,7 @@ public class InsuranceSystem {
   public void loadProfile(String userName) {
     // Description: command loads a profile into the system
     userName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
-    
+
     // Go through the database and check if the usernames match
     // If the usernames matches, save as the loaded profile and print the success message
     // If no match is found, print profile not found message
