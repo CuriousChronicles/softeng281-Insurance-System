@@ -15,6 +15,10 @@ abstract class Policy {
 
   // Method to apply discount to base premium of policies
   public int policyDiscount(int policyCount) {
+    // If there are 2 policies in a profile, apply a 10% discount
+    // If there are more than 2 policies in a profile, apply a 20% discount
+    // Otherwise return the base premium without a discount
+    
     if (policyCount == 2) {
       MessageCli.DISCOUNT_TWO.printMessage();
       return (90 * basePremium()) / 100;

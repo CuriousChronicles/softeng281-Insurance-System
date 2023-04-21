@@ -29,7 +29,7 @@ public class Profile {
     // Use a try-catch statement, if we can't convert string to an integer then return false
     // Return false if the integer is less than zero
     try {
-      // 
+      //
       if (getAgeAsInt() <= 0) {
         return false;
       } else {
@@ -72,6 +72,7 @@ public class Profile {
 
   // Create life policy method
   public void createLifePolicy(int age, int sumInsured) {
+    // No life policy is create if the client is over 100 and if they already have a life policy
     if (age > 100) {
       MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(userName);
     } else if (lifePolicyCount == 1) {

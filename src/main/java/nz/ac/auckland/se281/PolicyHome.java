@@ -1,6 +1,6 @@
 package nz.ac.auckland.se281;
 
-public class PolicyHome extends Policy{
+public class PolicyHome extends Policy {
   private String address;
   private boolean isRental;
 

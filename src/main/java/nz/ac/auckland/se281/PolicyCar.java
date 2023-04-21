@@ -6,7 +6,9 @@ public class PolicyCar extends Policy {
   String licensePlate;
   boolean mechBreakdown;
 
-  public PolicyCar(int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
+  public PolicyCar(
+      int age, int sumInsured, String makeAndModel, String licensePlate, boolean mechBreakdown) {
+
     super(sumInsured);
     this.age = age;
     this.makeAndModel = makeAndModel;
@@ -17,6 +19,7 @@ public class PolicyCar extends Policy {
   public String getMakeAndModel() {
     return makeAndModel;
   }
+
   public String getLicensePlate() {
     return licensePlate;
   }
