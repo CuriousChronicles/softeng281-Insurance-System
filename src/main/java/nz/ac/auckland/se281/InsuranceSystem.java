@@ -111,7 +111,7 @@ public class InsuranceSystem {
         MessageCli.INVALID_AGE.printMessage(age, userName);
       }
     } else {
-      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(userName);
+      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(loadedProfileUserName);
     }
   }
 
