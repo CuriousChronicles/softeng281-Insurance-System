@@ -1555,6 +1555,67 @@ public class MainTest {
       assertDoesNotContain("3: Jenny, 23, 2 policies", true);
     }
 
+    @Test
+    public void TY3_03_delete_profile_while_other_profile_is_loaded() throws Exception {
+      runCommands(
+          CREATE_PROFILE,
+          "Jenny",
+          20,
+          CREATE_PROFILE,
+          "Josh",
+          20,
+          CREATE_PROFILE,
+          "Bob",
+          20,
+          CREATE_PROFILE,
+          "Elon",
+          20,
+          CREATE_PROFILE,
+          "Eliezer",
+          20,
+          LOAD_PROFILE,
+          "Elon",
+          DELETE_PROFILE,
+          "Bob",
+          PRINT_DB);
+
+      assertContains("Profile loaded for Elon.");
+      assertContains("*** 3: Elon, 20, 0 policies for a total of $0");
+      assertDoesNotContain("*** 4: Eliezer, 20, 0 policies for a total of $0");
+    }
+
+    @Test
+    public void TY3_04_delete_profile_larger_index_than_loaded_profile() throws Exception {
+      runCommands(
+          CREATE_PROFILE,
+          "Jenny",
+          20,
+          CREATE_PROFILE,
+          "Josh",
+          20,
+          CREATE_PROFILE,
+          "Sam",
+          20,
+          CREATE_PROFILE,
+          "Elon",
+          20,
+          CREATE_PROFILE,
+          "Eliezer",
+          20,
+          CREATE_PROFILE,
+          "Bob",
+          20,
+          LOAD_PROFILE,
+          "Elon",
+          DELETE_PROFILE,
+          "Bob",
+          PRINT_DB);
+
+      assertContains("Profile loaded for Elon.");
+      assertContains("*** 4: Elon, 20, 0 policies for a total of $0");
+      assertDoesNotContain("*** 3: Sam, 20, 0 policies for a total of $0");
+    }
+
   }
 
   private static final Object[] CREATE_SOME_CLIENTS =
